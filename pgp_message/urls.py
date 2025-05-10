@@ -4,18 +4,13 @@ from django.conf.urls.i18n import i18n_patterns
 
 # 非国际化路径
 urlpatterns = [
-    # Django 内置的语言切换视图
+    # Django内置的语言切换视图（这个可以保留在非国际化路径中）
     path('i18n/', include('django.conf.urls.i18n')),
-    
-    # 我们自定义的语言切换视图也放在非国际化路径中
-    path('', include('message_agent.urls')),
 ]
 
-# 国际化路径 - 现在暂时去掉，简化问题排查
-# urlpatterns += i18n_patterns(
-#     path('admin/', admin.site.urls),
-#     prefix_default_language=False
-# )
-
-# 添加管理站点URL
-urlpatterns.append(path('admin/', admin.site.urls))
+# 国际化路径 - 所有主要页面都应该支持语言前缀
+urlpatterns += i18n_patterns(
+    path('admin/', admin.site.urls),
+    path('', include('message_agent.urls')),
+    prefix_default_language=True  # 总是显示语言前缀，便于JavaScript处理
+)

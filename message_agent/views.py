@@ -228,25 +228,64 @@ def set_language(request):
             
             # 设置会话语言
             translation.activate(lang_code)
-            # 使用正确的会话键名称
             request.session[settings.LANGUAGE_SESSION_KEY] = lang_code
-            print(f"Session language key set: {settings.LANGUAGE_SESSION_KEY}={lang_code}")
             
-            # 获取引用页
+            # 获取引用页或默认首页
             next_url = request.META.get('HTTP_REFERER', '/')
-            print(f"Redirecting to: {next_url}")
+            print(f"Original redirect URL: {next_url}")
             
-            # 设置 Cookie
-            response = HttpResponseRedirect(next_url)
+            # 解析当前URL，以便添加语言前缀
+            from urllib.parse import urlparse
+            parsed_url = urlparse(next_url)
+            path = parsed_url.path
+            
+            # 移除可能存在的旧语言前缀
+            path_without_lang = path
+            for code, name in settings.LANGUAGES:
+                if path.startswith(f'/{code}/'):
+                    path_without_lang = path[len(f'/{code}/'):]
+                    break
+            
+            # 构建新的带语言前缀的路径
+            new_path = f'/{lang_code}'
+            if path_without_lang and path_without_lang != '/':
+                if path_without_lang.startswith('/'):
+                    new_path += path_without_lang
+                else:
+                    new_path += f'/{path_without_lang}'
+            
+            # 如果路径是空的或只是'/'，不要添加额外斜杠
+            if new_path.endswith('//'):
+                new_path = new_path[:-1]
+            
+            # 保留原始URL的查询参数
+            if parsed_url.query:
+                new_path += f'?{parsed_url.query}'
+            
+            # 拼接完整的URL (使用原始域名)
+            from urllib.parse import urlunparse
+            new_url = urlunparse((
+                parsed_url.scheme,
+                parsed_url.netloc,
+                new_path,
+                parsed_url.params,
+                '',  # 查询参数已添加到路径中
+                parsed_url.fragment
+            ))
+            
+            print(f"Redirecting to URL with language prefix: {new_url}")
+            
+            # 设置Cookie并返回响应
+            response = HttpResponseRedirect(new_url)
             response.set_cookie(
                 settings.LANGUAGE_COOKIE_NAME, 
                 lang_code,
-                max_age=365*24*60*60 if settings.LANGUAGE_COOKIE_AGE is None else settings.LANGUAGE_COOKIE_AGE
+                max_age=365*24*60*60  # 设置为一年
             )
+            
             return response
         else:
             print(f"Invalid language code: {lang_code}")
-            print(f"Valid codes are: {[code for code, name in settings.LANGUAGES]}")
     
-    # 如果是 GET 请求或语言代码无效，则重定向回来源页面
+    # 如果是GET请求或语言代码无效，仍返回到引用页
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))

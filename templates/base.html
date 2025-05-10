@@ -90,20 +90,59 @@
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // 确保语言选择表单正确提交
+        // 确保语言选择表单正确提交并刷新页面
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.language-form').forEach(form => {
+                // 移除原有的表单提交监听器，确保表单正常提交并刷新页面
                 form.addEventListener('submit', function(e) {
-                    console.log('语言表单已提交:', this);
-                    // 防止出现任何阻止默认行为的代码
+                    console.log('语言表单已提交:', this.querySelector('input[name="language"]').value);
+                    // 不阻止默认行为，让表单正常提交
+                    localStorage.setItem('needRefresh', 'true');
                 });
                 
-                // 添加点击事件，确保按钮提交表单
+                // 修改按钮点击处理，直接提交表单
                 const button = form.querySelector('button');
                 if (button) {
-                    button.addEventListener('click', function() {
-                        console.log('语言按钮已点击:', form);
-                        form.submit();
+                    button.addEventListener('click', function(e) {
+                        // 阻止按钮默认行为，避免冲突
+                        e.preventDefault();
+                        console.log('语言按钮已点击:', form.querySelector('input[name="language"]').value);
+                        
+                        // 手动提交表单并确保页面刷新
+                        const langCode = form.querySelector('input[name="language"]').value;
+                        const csrfToken = form.querySelector('input[name="csrfmiddlewaretoken"]').value;
+                        
+                        // 使用fetch API发送请求
+                        fetch(form.action, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                                'X-CSRFToken': csrfToken
+                            },
+                            body: `language=${langCode}&csrfmiddlewaretoken=${csrfToken}`
+                        }).then(response => {
+                            // 请求完成后重定向到带语言前缀的URL
+                            const currentPath = window.location.pathname;
+                            const queryString = window.location.search;
+                            
+                            // 移除可能存在的旧语言前缀
+                            let pathWithoutLang = currentPath;
+                            {% for code, name in LANGUAGES %}
+                            if (currentPath.startsWith('/{{ code }}/')) {
+                                pathWithoutLang = currentPath.substring('/{{ code }}/'.length);
+                            }
+                            {% endfor %}
+                            
+                            // 构建新的URL，添加语言前缀
+                            let newUrl = `/${langCode}`;
+                            if (pathWithoutLang && pathWithoutLang !== '/') {
+                                newUrl += pathWithoutLang.startsWith('/') ? pathWithoutLang : '/' + pathWithoutLang;
+                            }
+                            newUrl += queryString; // 保留查询字符串
+                            
+                            console.log(`重定向到: ${newUrl}`);
+                            window.location.href = newUrl;
+                        });
                     });
                 }
             });
