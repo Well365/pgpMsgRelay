@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}消息不存在 | OpenPGP 中转站{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">消息不存在</h2>
+
+<div class="alert alert-warning">
+    <p>很抱歉，您尝试访问的消息不存在。</p>
+</div>
+
+<p>消息可能由于以下原因而不可用:</p>
+<ul>
+    <li>消息链接有误或已损坏</li>
+    <li>消息已被查看（如果是一次性消息）</li>
+    <li>消息已过期并被自动删除</li>
+    <li>消息已被发送者删除</li>
+</ul>
+
+<div class="mt-4">
+    <a href="{% url 'message_agent:create_message' %}" class="btn btn-primary">创建新消息</a>
+</div>
+{% endblock %}
