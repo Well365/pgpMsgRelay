@@ -36,9 +36,9 @@
 function copyMessage() {
     const messageContent = document.getElementById('message-content').innerText;
     navigator.clipboard.writeText(messageContent).then(function() {
-        alert('{% trans "消息已复制到剪贴板!" %}');
+        alert("{% trans '消息已复制到剪贴板!' %}");
     }, function(err) {
-        console.error('{% trans "无法复制:" %}', err);
+        console.error("{% trans '无法复制:' %}", err);
     });
 }
 </script>

@@ -1194,3 +1194,55 @@ msgstr "Lo sentimos, este mensaje de un solo uso ya ha sido visto y no se puede 
 msgid "一次性消息在第一次被成功访问后会立即销毁，以确保数据安全。"
 msgstr "Los mensajes de un solo uso se destruyen inmediatamente después de ser accedidos con éxito por primera vez, para garantizar la seguridad de los datos."
 
+
+msgid "密码验证"
+msgstr "Verificación de Contraseña"
+
+msgid "需要密码验证"
+msgstr "Se Requiere Verificación de Contraseña"
+
+msgid "此消息需要密码才能访问。请输入正确的访问密码继续。"
+msgstr "Este mensaje requiere una contraseña para acceder. Por favor, introduzca la contraseña de acceso correcta para continuar."
+
+msgid "验证密码"
+msgstr "Verificar Contraseña"
+
+msgid "注意:"
+msgstr "Nota:"
+
+msgid "这是一条一次性消息，查看后将被立即删除。"
+msgstr "Este es un mensaje de un solo uso que se eliminará inmediatamente después de verlo."
+
+msgid "加密消息内容:"
+msgstr "Contenido del mensaje cifrado:"
+
+msgid "复制"
+msgstr "Copiar"
+
+msgid "消息已复制到剪贴板!"
+msgstr "¡Mensaje copiado al portapapeles!"
+
+msgid "无法复制:"
+msgstr "No se puede copiar:"
+
+msgid "查看此消息"
+msgstr "Ver este mensaje"
+
+msgid "查看 OpenPGP 消息"
+msgstr "Ver mensaje OpenPGP"
+
+msgid "OpenPGP 消息"
+msgstr "Mensaje OpenPGP"
+
+msgid "消息已创建"
+msgstr "Mensaje creado"
+
+msgid "您的 OpenPGP 消息已成功创建并存储!"
+msgstr "¡Su mensaje OpenPGP ha sido creado y almacenado con éxito!"
+
+msgid "请将以下链接发送给接收者"
+msgstr "Por favor envíe el siguiente enlace al destinatario"
+
+msgid "链接访问后将按照您设置的条件被处理"
+msgstr "El enlace se procesará según su configuración después del acceso"
+

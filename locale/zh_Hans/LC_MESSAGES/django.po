@@ -1194,3 +1194,54 @@ msgstr "很抱歉，此一次性消息已被查看，无法再次访问。"
 msgid "一次性消息在第一次被成功访问后会立即销毁，以确保数据安全。"
 msgstr "一次性消息在第一次被成功访问后会立即销毁，以确保数据安全。"
 
+msgid "密码验证"
+msgstr "密码验证"
+
+msgid "需要密码验证"
+msgstr "需要密码验证"
+
+msgid "此消息需要密码才能访问。请输入正确的访问密码继续。"
+msgstr "此消息需要密码才能访问。请输入正确的访问密码继续。"
+
+msgid "验证密码"
+msgstr "验证密码"
+
+msgid "注意:"
+msgstr "注意:"
+
+msgid "这是一条一次性消息，查看后将被立即删除。"
+msgstr "这是一条一次性消息，查看后将被立即删除。"
+
+msgid "加密消息内容:"
+msgstr "加密消息内容:"
+
+msgid "复制"
+msgstr "复制"
+
+msgid "消息已复制到剪贴板!"
+msgstr "消息已复制到剪贴板!"
+
+msgid "无法复制:"
+msgstr "无法复制:"
+
+msgid "查看此消息"
+msgstr "查看此消息"
+
+msgid "查看 OpenPGP 消息"
+msgstr "查看 OpenPGP 消息"
+
+msgid "OpenPGP 消息"
+msgstr "OpenPGP 消息"
+
+msgid "消息已创建"
+msgstr "消息已创建"
+
+msgid "您的 OpenPGP 消息已成功创建并存储!"
+msgstr "您的 OpenPGP 消息已成功创建并存储!"
+
+msgid "请将以下链接发送给接收者"
+msgstr "请将以下链接发送给接收者"
+
+msgid "链接访问后将按照您设置的条件被处理"
+msgstr "链接访问后将按照您设置的条件被处理"
+
