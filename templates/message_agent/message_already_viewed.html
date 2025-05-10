@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}消息已被查看 | OpenPGP 中转站{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">消息已被查看</h2>
+
+<div class="alert alert-warning">
+    <p>很抱歉，此一次性消息已被查看，无法再次访问。</p>
+</div>
+
+<p>一次性消息在第一次被成功访问后会立即销毁，以确保数据安全。</p>
+
+<div class="mt-4">
+    <a href="{% url 'message_agent:create_message' %}" class="btn btn-primary">创建新消息</a>
+</div>
+{% endblock %}

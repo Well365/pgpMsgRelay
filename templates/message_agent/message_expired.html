@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}消息已过期 | OpenPGP 中转站{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">消息已过期</h2>
+
+<div class="alert alert-warning">
+    <p>很抱歉，您尝试访问的消息已过期并被删除。</p>
+</div>
+
+<p>消息可能由于以下原因而不可用:</p>
+<ul>
+    <li>消息已超出设定的有效期</li>
+    <li>消息是一次性查看且已被查看过</li>
+    <li>消息已被管理员删除</li>
+</ul>
+
+<div class="mt-4">
+    <a href="{% url 'message_agent:create_message' %}" class="btn btn-primary">创建新消息</a>
+</div>
+{% endblock %}

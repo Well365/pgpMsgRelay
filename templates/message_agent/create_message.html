@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}创建 OpenPGP 消息 | OpenPGP 中转站{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">创建新消息</h2>
+
+<form method="post">
+    {% csrf_token %}
+    
+    <div class="mb-3">
+        <label for="{{ form.content.id_for_label }}" class="form-label">{{ form.content.label }}</label>
+        {{ form.content|add_class:"form-control" }}
+        {% if form.content.errors %}
+            <div class="text-danger">{{ form.content.errors }}</div>
+        {% endif %}
+    </div>
+    
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="{{ form.expiry_minutes.id_for_label }}" class="form-label">{{ form.expiry_minutes.label }}</label>
+            {{ form.expiry_minutes|add_class:"form-select" }}
+        </div>
+        <div class="col-md-6">
+            <div class="form-check mt-4">
+                {{ form.one_time_view|add_class:"form-check-input" }}
+                <label for="{{ form.one_time_view.id_for_label }}" class="form-check-label">{{ form.one_time_view.label }}</label>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="{{ form.note.id_for_label }}" class="form-label">{{ form.note.label }}</label>
+            {{ form.note|add_class:"form-control" }}
+        </div>
+        <div class="col-md-6">
+            <label for="{{ form.password.id_for_label }}" class="form-label">{{ form.password.label }}</label>
+            {{ form.password|add_class:"form-control" }}
+        </div>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">生成短链接</button>
+</form>
+{% endblock %}
+
+{% block extra_head %}
+<style>
+    textarea {
+        font-family: monospace;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}消息已创建 | OpenPGP 中转站{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">消息已创建</h2>
+
+<div class="alert alert-success">
+    <p>您的 OpenPGP 消息已成功创建并存储！</p>
+</div>
+
+<div class="mb-4">
+    <p>请将以下链接发送给接收者:</p>
+    <div class="input-group">
+        <input type="text" id="shortUrl" class="form-control" value="{{ short_url }}" readonly>
+        <button class="btn btn-outline-secondary" type="button" onclick="copyToClipboard()">复制</button>
+    </div>
+    <small class="text-muted">链接访问后将按照您设置的条件被处理</small>
+</div>
+
+<div class="d-flex justify-content-between mt-4">
+    <a href="{% url 'message_agent:create_message' %}" class="btn btn-primary">创建新消息</a>
+    <a href="{% url 'message_agent:view_message' short_id %}" class="btn btn-outline-secondary">查看此消息</a>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function copyToClipboard() {
+    const shortUrlElement = document.getElementById('shortUrl');
+    shortUrlElement.select();
+    document.execCommand('copy');
+    alert('链接已复制到剪贴板!');
+}
+</script>
+{% endblock %}
