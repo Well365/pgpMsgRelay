@@ -13,6 +13,7 @@
         }
         .container {
             max-width: 800px;
+            position: relative; /* 添加相对定位 */
         }
         .pgp-card {
             background-color: #fff;
@@ -31,41 +32,57 @@
             color: #6c757d;
             font-size: 0.9rem;
         }
+        /* 修改语言选择器样式 */
         .language-selector {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 35px; /* 调整为标题行高度附近 */
+            right: 200px; /* 距离右侧150px */
         }
         [dir="rtl"] .language-selector {
             right: auto;
-            left: 10px;
+            left: 150px; /* 阿拉伯语等RTL文字时距离左侧150px */
+        }
+
+        /* 为移动设备添加响应式调整 */
+        @media (max-width: 768px) {
+            .language-selector {
+                position: relative;
+                top: 0;
+                right: 0;
+                margin-bottom: 15px;
+                text-align: center;
+            }
+            [dir="rtl"] .language-selector {
+                left: 0;
+            }
         }
     </style>
     {% block extra_head %}{% endblock %}
 </head>
 <body{% if LANGUAGE_CODE == 'ar' %} dir="rtl"{% endif %}>
-    <div class="language-selector dropdown">
-        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-            {% for code, name in LANGUAGES %}
-                {% if code == LANGUAGE_CODE %}{{ name }}{% endif %}
-            {% endfor %}
-        </button>
-        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
-            {% for code, name in LANGUAGES %}
-                <li>
-                    <form action="{% url 'message_agent:set_language' %}" method="post" class="language-form">
-                        {% csrf_token %}
-                        <input type="hidden" name="language" value="{{ code }}">
-                        <button type="submit" class="dropdown-item{% if code == LANGUAGE_CODE %} active{% endif %}">
-                            {{ name }}
-                        </button>
-                    </form>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
-
     <div class="container">
+        <!-- 将语言选择器移到container内 -->
+        <div class="language-selector dropdown">
+            <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                {% for code, name in LANGUAGES %}
+                    {% if code == LANGUAGE_CODE %}{{ name }}{% endif %}
+                {% endfor %}
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+                {% for code, name in LANGUAGES %}
+                    <li>
+                        <form action="{% url 'message_agent:set_language' %}" method="post" class="language-form">
+                            {% csrf_token %}
+                            <input type="hidden" name="language" value="{{ code }}">
+                            <button type="submit" class="dropdown-item{% if code == LANGUAGE_CODE %} active{% endif %}">
+                                {{ name }}
+                            </button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
         <header class="text-center mb-4">
             <h1>{% trans 'OpenPGP 中转站' %}</h1>
             <p class="text-muted">{% trans '安全地传递 PGP 加密信息' %}</p>
