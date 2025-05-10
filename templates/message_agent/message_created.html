@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}消息已创建 | OpenPGP 中转站{% endblock %}
+{% block title %}{% trans '消息已创建' %} | {% trans 'OpenPGP 中转站' %}{% endblock %}
 
 {% block content %}
-<h2 class="mb-4">消息已创建</h2>
+<h2 class="mb-4">{% trans '消息已创建' %}</h2>
 
 <div class="alert alert-success">
     <p>您的 OpenPGP 消息已成功创建并存储！</p>
