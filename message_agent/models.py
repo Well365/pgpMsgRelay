@@ -3,6 +3,7 @@ import string
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+from django.core.validators import MaxLengthValidator
 
 def generate_short_id():
     chars = string.ascii_letters + string.digits
@@ -15,12 +16,13 @@ class PGPMessage(models.Model):
         (1440, _('1天')),
     ]
     
-    # TextField 理论上可以存储无限量的文本数据，但实际受数据库限制:
-    # - SQLite: 大约 1GB
-    # - MySQL: 最大 4GB (longtext)
-    # - PostgreSQL: 最大 1GB
-    # 足以满足大多数 PGP 加密信息的存储需求
-    content = models.TextField(verbose_name=_('PGP加密信息'))
+    # TextField 添加最大长度限制为20K
+    # 使用 validators 添加大小验证，而不是直接使用 max_length
+    # 因为在某些数据库中，TextField 的 max_length 参数并不强制执行
+    content = models.TextField(
+        verbose_name=_('PGP加密信息'),
+        validators=[MaxLengthValidator(20000)]
+    )
     short_id = models.CharField(max_length=10, unique=True, default=generate_short_id, verbose_name=_('短链接ID'))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('创建时间'))
     expiry_minutes = models.IntegerField(choices=EXPIRY_CHOICES, default=60, verbose_name=_('过期时间'))

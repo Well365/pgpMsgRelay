@@ -1198,51 +1198,71 @@ msgstr "One-time messages are immediately destroyed after being successfully acc
 msgid "密码验证"
 msgstr "Password Verification"
 
+
 msgid "需要密码验证"
 msgstr "Password Verification Required"
+
 
 msgid "此消息需要密码才能访问。请输入正确的访问密码继续。"
 msgstr "This message requires a password to access. Please enter the correct access password to continue."
 
+
 msgid "验证密码"
 msgstr "Verify Password"
+
 
 msgid "注意:"
 msgstr "Note:"
 
+
 msgid "这是一条一次性消息，查看后将被立即删除。"
 msgstr "This is a one-time message that will be deleted immediately after viewing."
+
 
 msgid "加密消息内容:"
 msgstr "Encrypted Message Content:"
 
+
 msgid "复制"
 msgstr "Copy"
+
 
 msgid "消息已复制到剪贴板!"
 msgstr "Message copied to clipboard!"
 
+
 msgid "无法复制:"
 msgstr "Unable to copy:"
+
 
 msgid "查看此消息"
 msgstr "View This Message"
 
+
 msgid "查看 OpenPGP 消息"
 msgstr "View OpenPGP Message"
+
 
 msgid "OpenPGP 消息"
 msgstr "OpenPGP Message"
 
+
 msgid "消息已创建"
 msgstr "Message Created"
+
 
 msgid "您的 OpenPGP 消息已成功创建并存储!"
 msgstr "Your OpenPGP message has been successfully created and stored!"
 
+
 msgid "请将以下链接发送给接收者"
 msgstr "Please send the following link to the recipient"
 
+
 msgid "链接访问后将按照您设置的条件被处理"
 msgstr "The link will be processed according to your settings after access"
+
+
+msgid "内容超过了最大允许大小 (20KB)。请减少内容后重试。"
+msgstr "The content exceeds the maximum allowed size (20KB). Please reduce the content and try again."
 
