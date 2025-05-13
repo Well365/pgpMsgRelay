@@ -19,4 +19,8 @@ def main():
 
 
 if __name__ == '__main__':
+    # 自动创建 static 目录，避免 collectstatic 报错
+    static_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static')
+    if not os.path.exists(static_dir):
+        os.makedirs(static_dir)
     main()
