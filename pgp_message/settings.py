@@ -11,7 +11,17 @@ SECRET_KEY = 'django-insecure-your-secret-key-here'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["0.0.0.0",
+                 "www.si4key.com",
+                 "si4key.com",
+                 "https://si4key.com",
+                 "https://www.si4key.com",
+                 "si4key.com:80",
+                 "www.si4key.com:80",
+                 "si4key.com:443",
+                 "www.si4key.com:443",
+                 "localhost"
+                 ]
 
 # Application definition
 INSTALLED_APPS = [
@@ -23,9 +33,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'message_agent',
     'rest_framework',  # 添加REST Framework
+    'corsheaders',  # 添加CORS支持
+    'django.contrib.sites',  # 添加django.contrib.sites
+    'django.contrib.sitemaps',  # 添加django.contrib.sitemaps
+    'django.contrib.flatpages',  # 添加django.contrib.flatpages
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',  # 添加在最前面
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',  # 确保这行在正确位置
@@ -143,3 +158,6 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.MultiPartParser',
     ],
 }
+
+# CORS 配置，允许所有来源跨域（如需限制可自行调整）
+CORS_ALLOW_ALL_ORIGINS = True
