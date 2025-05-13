@@ -15,11 +15,11 @@
 
 ### 准备工作
 
-确保你的系统已安装 Python 3.8+ 和 pip。
+确保你的系统已安装 Python 3.6.8 和 pip。
 
 ### 创建虚拟环境并安装依赖:
 ```bash
-python -m venv venv
+python3.6 -m venv venv  # 固定使用 Python 3.6.8
 source venv/bin/activate  # 在Windows上是 venv\Scripts\activate
 pip install -r requirements.txt
 ```

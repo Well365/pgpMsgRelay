@@ -1,5 +1,9 @@
-Django>=4.2.0
-djangorestframework>=3.14.0
-django-modeltranslation>=0.18.10  # 提供Django模型翻译功能
-
-
+asgiref==3.4.1
+Django==3.2.25
+django-cors-headers==3.10.1
+django-modeltranslation==0.17.7
+djangorestframework==3.12.4
+pytz==2025.2
+six==1.17.0
+sqlparse==0.4.4
+typing-extensions==4.1.1

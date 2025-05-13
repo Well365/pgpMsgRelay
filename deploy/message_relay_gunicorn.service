@@ -1,0 +1,16 @@
+[Unit]
+Description=gunicorn daemon for message_relay_api
+After=network.target
+
+[Service]
+User=root
+Group=www-data
+WorkingDirectory=/root/message_relay_api
+ExecStart=/root/message_relay_api/venv/bin/gunicorn \
+          --access-logfile - \
+          --workers 3 \
+          --bind unix:/root/message_relay_api/message_relay.sock \
+          pgp_message.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
