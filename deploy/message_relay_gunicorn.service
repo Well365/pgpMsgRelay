@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 User=root
-Group=www-data
+Group=root
 WorkingDirectory=/root/message_relay_api
 ExecStart=/root/message_relay_api/venv/bin/gunicorn \
           --access-logfile - \

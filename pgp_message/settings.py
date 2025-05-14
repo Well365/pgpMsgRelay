@@ -20,6 +20,8 @@ ALLOWED_HOSTS = ["0.0.0.0",
                  "www.si4key.com:80",
                  "si4key.com:443",
                  "www.si4key.com:443",
+                 "8.219.85.168",
+                 "172.19.41.215",
                  "localhost"
                  ]
 
@@ -129,6 +131,9 @@ LANGUAGE_COOKIE_SAMESITE = None
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+# 新增：指定静态文件收集目录，供 collectstatic 使用
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # 添加缓存配置，确保国际化页面不会被缓存
 CACHES = {
