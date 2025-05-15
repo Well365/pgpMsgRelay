@@ -57,8 +57,16 @@ msgid "10分钟"
 msgstr "10分"
 
 
+msgid "30分钟"
+msgstr "30分"
+
+
 msgid "1小时"
 msgstr "1時間"
+
+
+msgid "4小时"
+msgstr "4時間"
 
 
 msgid "1天"
