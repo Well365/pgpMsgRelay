@@ -23,7 +23,7 @@ class PGPMessageResponseSerializer(serializers.ModelSerializer):
         request = self.context.get('request')
         if request is None:
             return None
-        return request.build_absolute_uri(f'/message/{obj.short_id}')
+        return request.build_absolute_uri(f'relay/api/messages/{obj.short_id}')
 
 class PGPMessageDetailSerializer(serializers.ModelSerializer):
     class Meta:
