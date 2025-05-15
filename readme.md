@@ -61,12 +61,12 @@ python manage.py runserver
    - 静态文件测试:  
      https://si4key.com/api/pgpMsgRelay/static/  
      > ⚠️ 如果出现 403 Forbidden，说明 staticfiles 目录权限不足或目录为空。  
-     > - 请确保服务器上的 `/root/message_relay_api/staticfiles/` 目录存在且有可读静态文件。  
+     > - 请确保服务器上的 `/srv/message_relay_api/staticfiles/` 目录存在且有可读静态文件。  
      > - 可通过 `python manage.py collectstatic` 收集静态文件，并检查目录权限：  
      >   ```bash
      >   source venv/bin/activate
      >   python manage.py collectstatic --noinput
-     >   chmod -R 755 /root/message_relay_api/staticfiles/
+     >   chmod -R 755 /srv/message_relay_api/staticfiles/
      >   ```
      > - 目录为空时访问也会 403，需有实际静态文件。
 

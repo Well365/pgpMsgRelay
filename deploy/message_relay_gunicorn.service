@@ -3,13 +3,15 @@ Description=gunicorn daemon for message_relay_api
 After=network.target
 
 [Service]
-User=root
-Group=root
-WorkingDirectory=/root/message_relay_api
-ExecStart=/root/message_relay_api/venv/bin/gunicorn \
+User=nginx
+Group=nginx
+UMask=0007
+WorkingDirectory=/srv/message_relay_api
+ExecStart=/srv/message_relay_api/venv/bin/gunicorn \
           --access-logfile - \
           --workers 3 \
-          --bind unix:/root/message_relay_api/message_relay.sock \
+          --bind unix:/srv/message_relay_api/message_relay.sock \
+          --umask 0000 \
           pgp_message.wsgi:application
 
 [Install]

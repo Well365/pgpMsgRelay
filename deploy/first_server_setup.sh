@@ -6,7 +6,7 @@ LOCAL_PROJECT_DIR="/Users/maxwell/Documents/idears/pgpMsgRelay"
 # 远程服务器用户和地址
 REMOTE_USER_HOST="root@8.219.85.168"
 # 远程服务器上项目的根目录 (Django 项目将部署在此)
-REMOTE_PROJECT_DIR="/root/message_relay_api"
+REMOTE_PROJECT_DIR="/srv/message_relay_api"
 # SSH 私钥文件路径
 SSH_KEY="/Users/$(whoami)/Documents/idears/homepage/aliyun/s4key.pem"
 # Gunicorn systemd 服务名称

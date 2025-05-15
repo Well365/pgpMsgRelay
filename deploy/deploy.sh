@@ -6,7 +6,7 @@ LOCAL_PROJECT_DIR="/Users/maxwell/Documents/idears/pgpMsgRelay"
 # 远程服务器用户和地址
 REMOTE_USER_HOST="root@8.219.85.168"
 # 远程服务器上项目的根目录 (Django 项目将部署在此)
-REMOTE_PROJECT_DIR="/root/message_relay_api"
+REMOTE_PROJECT_DIR="/srv/message_relay_api"
 # SSH 私钥文件路径
 SSH_KEY="/Users/$(whoami)/Documents/idears/homepage/aliyun/s4key.pem"
 # Gunicorn systemd 服务名称
@@ -37,7 +37,7 @@ rsync -avz --delete --progress \
     --exclude "staticfiles/" \
     --exclude "static/" \
     --exclude "*.log" \
-    -e "ssh -i '$SSH_KEY'" \
+    -e 'ssh -i '"$SSH_KEY" \
     "$LOCAL_PROJECT_DIR/" "$REMOTE_USER_HOST:$REMOTE_PROJECT_DIR/"
 
 if [ $? -ne 0 ]; then
@@ -61,6 +61,12 @@ remote_exec "cp -r $REMOTE_PROJECT_DIR/deploy/nginx/conf.d/* /etc/nginx/conf.d/ 
 
 # 3.3 上传 gunicorn systemd 服务文件
 remote_exec "cp $REMOTE_PROJECT_DIR/deploy/message_relay_gunicorn.service /etc/systemd/system/message_relay_gunicorn.service"
+# 检查服务文件内容
+remote_exec "grep -E '^(User|Group)=' /etc/systemd/system/message_relay_gunicorn.service"
+
+# 3.5 设置项目目录权限，确保 nginx 用户有访问权限
+remote_exec "chown -R nginx:nginx $REMOTE_PROJECT_DIR"
+remote_exec "chmod 750 $REMOTE_PROJECT_DIR"
 
 # 3.4 重新加载 systemd 并重启服务
 remote_exec "systemctl daemon-reload"
