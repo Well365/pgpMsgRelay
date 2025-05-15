@@ -12,8 +12,9 @@ def generate_short_id():
 class PGPMessage(models.Model):
     EXPIRY_CHOICES = [
         (10, _('10分钟')),
+        (30, _('30分钟')),
         (60, _('1小时')),
-        (1440, _('1天')),
+        (240, _('4小时')),
     ]
     
     # TextField 添加最大长度限制为20K

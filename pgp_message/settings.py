@@ -9,7 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-vixmow-6fygHu-qiwveq-fovpak-zakjud-3feSko'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = false
+DEBUG = False
 
 ALLOWED_HOSTS = ["0.0.0.0",
                  "www.si4key.com",
