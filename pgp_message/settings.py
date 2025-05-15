@@ -97,7 +97,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # 国际化设置
-LANGUAGE_CODE = 'zh-hans'  # 默认语言
+LANGUAGE_CODE = 'en'  # 默认语言
 LANGUAGE_SESSION_KEY = '_language'
 LANGUAGE_COOKIE_NAME = 'django_language'
 
