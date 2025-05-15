@@ -119,7 +119,20 @@ def api_create_message(request):
             message, 
             context={'request': request}
         )
-        return Response(response_serializer.data, status=status.HTTP_201_CREATED)
+        data = response_serializer.data
+
+        # 检查是否 relay 路径
+        if request.path.startswith('/relay/api/messages/create/'):
+            scheme = request.scheme
+            host = request.get_host()
+            # 判断是否有密码
+            if message.password:
+                relay_url = f"{scheme}://{host}/relay/api/messages/{message.short_id}/with-password/"
+            else:
+                relay_url = f"{scheme}://{host}/relay/api/messages/{message.short_id}/"
+            data['url'] = relay_url
+
+        return Response(data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])

@@ -20,7 +20,8 @@ urlpatterns = [
     path('api/messages/<str:short_id>/with-password/', views.api_get_message_with_password, name='api_get_message_with_password'),
 
     # 新增 relay 路由支持
-    # path('relay/api/messages/create/', views.api_create_message, name='relay_api_create_message'),
-    # path('relay/api/messages/<str:short_id>/', views.api_get_message, name='relay_api_get_message'),
-    # path('relay/api/messages/<str:short_id>/verify-password/', views.api_verify_password, name='relay_api_verify_password'),
+    path('relay/api/messages/create/', views.api_create_message, name='relay_api_create_message'),
+    path('relay/api/messages/<str:short_id>/', views.api_get_message, name='relay_api_get_message'),
+    path('relay/api/messages/<str:short_id>/verify-password/', views.api_verify_password, name='relay_api_verify_password'),
+    path('relay/api/messages/<str:short_id>/with-password/', views.api_get_message_with_password, name='relay_api_get_message_with_password'),
 ]
