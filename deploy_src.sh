@@ -28,3 +28,19 @@ rsync -avz --delete --progress \
     -e "ssh -i '$SSH_KEY'" \
     "$LOCAL_PROJECT_DIR/pgp_message/" "$REMOTE_USER_HOST:$REMOTE_PROJECT_DIR/pgp_message/"
 echo "同步完成。"
+
+echo "同步 locale 多语言 到服务器..."
+rsync -avz --delete --progress \
+    --exclude "__pycache__/" \
+    --exclude "*.pyc" \
+    -e "ssh -i '$SSH_KEY'" \
+    "$LOCAL_PROJECT_DIR/locale/" "$REMOTE_USER_HOST:$REMOTE_PROJECT_DIR/locale/"
+echo "同步完成。"
+
+echo "同步 staticfiles 到服务器..."
+rsync -avz --delete --progress \
+    --exclude "__pycache__/" \
+    --exclude "*.pyc" \
+    -e "ssh -i '$SSH_KEY'" \
+    "$LOCAL_PROJECT_DIR/staticfiles/" "$REMOTE_USER_HOST:$REMOTE_PROJECT_DIR/staticfiles/"
+echo "同步完成。"
