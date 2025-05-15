@@ -215,6 +215,63 @@ def api_verify_password(request, short_id):
             status=status.HTTP_404_NOT_FOUND
         )
 
+@api_view(['POST'])
+def api_get_message_with_password(request, short_id):
+    """
+    通过密码直接获取 PGP 加密消息 - API 端点
+    """
+    try:
+        message = PGPMessage.objects.get(short_id=short_id)
+
+        # 检查是否已过期
+        if message.is_expired:
+            message.delete()
+            return Response(
+                {"detail": "消息已过期并被删除。"},
+                status=status.HTTP_410_GONE
+            )
+
+        data = request.data
+        password = data.get('password')
+
+        if message.password:
+            if not password:
+                return Response(
+                    {"detail": "需要密码。"},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            if password != message.password:
+                return Response(
+                    {"detail": "密码不正确。"},
+                    status=status.HTTP_403_FORBIDDEN
+                )
+
+        # 检查是否已被查看（一次性信息）
+        if message.one_time_view and message.has_been_viewed:
+            return Response(
+                {"detail": "该消息已被查看过，不能重复查看。"},
+                status=status.HTTP_410_GONE
+            )
+
+        # 标记为已查看
+        if message.one_time_view:
+            message.has_been_viewed = True
+            message.save()
+
+        serializer = PGPMessageDetailSerializer(message)
+
+        # 一次性信息，查看后删除
+        if message.one_time_view:
+            message.delete()
+
+        return Response(serializer.data)
+
+    except PGPMessage.DoesNotExist:
+        return Response(
+            {"detail": "消息不存在或已被删除。"},
+            status=status.HTTP_404_NOT_FOUND
+        )
+
 def set_language(request):
     """
     设置用户界面语言
