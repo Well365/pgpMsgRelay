@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>远程锁定 Mac - {{ device_id }}</title>
+    <title>Remote Lock Mac - {{ device_id }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
@@ -58,19 +58,19 @@
 </head>
 <body>
     <div class="container">
-        <h1>远程锁定 Mac</h1>
+        <h1>Remote Lock Mac</h1>
         {% if device_id %}
-            <p>您正在准备远程锁定以下 Mac 设备:</p>
+            <p>You are about to remotely lock the following Mac device:</p>
             <div class="device-id">{{ device_id }}</div>
             <form method="post">
                 {% csrf_token %}
-                <button type="submit" class="lock-button">锁定此 Mac</button>
+                <button type="submit" class="lock-button">Lock this Mac</button>
             </form>
         {% else %}
-            <p>请输入要锁定的 Mac 设备号：</p>
+            <p>Please enter the Mac device ID to lock:</p>
             <form id="deviceIdForm" onsubmit="return gotoDeviceLockPage();">
-                <input type="text" id="device_id_input" name="device_id" placeholder="输入设备号" required style="padding:10px;width:80%;border-radius:5px;border:1px solid #ccc;">
-                <button type="submit" class="lock-button" style="margin-top:10px;">下一步</button>
+                <input type="text" id="device_id_input" name="device_id" placeholder="Enter device ID" required style="padding:10px;width:80%;border-radius:5px;border:1px solid #ccc;">
+                <button type="submit" class="lock-button" style="margin-top:10px;">Next</button>
             </form>
             <script>
                 function gotoDeviceLockPage() {
@@ -84,9 +84,9 @@
         {% endif %}
         <div class="status-info">
             {% if last_checked %}
-                <p>设备上次检查时间: {{ last_checked }}</p>
+                <p>Last checked: {{ last_checked }}</p>
             {% else %}
-                <p>设备尚未检查锁定状态</p>
+                <p>Device has not checked lock status yet</p>
             {% endif %}
         </div>
     </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>锁定指令已发送 - {{ device_id }}</title>
+    <title>Lock Command Sent - {{ device_id }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
@@ -50,13 +50,13 @@
 </head>
 <body>
     <div class="container">
-        <h1>锁定指令已发送</h1>
+        <h1>Lock Command Sent</h1>
         <div class="success-icon">✓</div>
-        <p>成功发送锁定指令到以下 Mac 设备:</p>
+        <p>The lock command has been successfully sent to the following Mac device:</p>
         <div class="device-id">{{ device_id }}</div>
-        <p>Mac 设备将在下次检查时（通常在30秒内）自动锁定。</p>
+        <p>The Mac will automatically lock the next time it checks in (usually within 30 seconds).</p>
         
-        <a href="{% url 'lock_page' device_id=device_id %}" class="back-link">返回到锁定页面</a>
+        <a href="{% url 'lock_page' device_id=device_id %}" class="back-link">Back to Lock Page</a>
     </div>
 </body>
 </html>
