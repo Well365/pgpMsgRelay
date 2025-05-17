@@ -59,14 +59,29 @@
 <body>
     <div class="container">
         <h1>远程锁定 Mac</h1>
-        <p>您正在准备远程锁定以下 Mac 设备:</p>
-        <div class="device-id">{{ device_id }}</div>
-        
-        <form method="post">
-            {% csrf_token %}
-            <button type="submit" class="lock-button">锁定此 Mac</button>
-        </form>
-        
+        {% if device_id %}
+            <p>您正在准备远程锁定以下 Mac 设备:</p>
+            <div class="device-id">{{ device_id }}</div>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="lock-button">锁定此 Mac</button>
+            </form>
+        {% else %}
+            <p>请输入要锁定的 Mac 设备号：</p>
+            <form id="deviceIdForm" onsubmit="return gotoDeviceLockPage();">
+                <input type="text" id="device_id_input" name="device_id" placeholder="输入设备号" required style="padding:10px;width:80%;border-radius:5px;border:1px solid #ccc;">
+                <button type="submit" class="lock-button" style="margin-top:10px;">下一步</button>
+            </form>
+            <script>
+                function gotoDeviceLockPage() {
+                    var deviceId = document.getElementById('device_id_input').value.trim();
+                    if (deviceId) {
+                        window.location.href = '/locker/lock_device/' + encodeURIComponent(deviceId) + '/';
+                    }
+                    return false;
+                }
+            </script>
+        {% endif %}
         <div class="status-info">
             {% if last_checked %}
                 <p>设备上次检查时间: {{ last_checked }}</p>

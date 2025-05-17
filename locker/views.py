@@ -6,7 +6,13 @@ from .models import LockCommand, PurchaseRecord  # Import PurchaseRecord
 import json
 from datetime import datetime  # Import datetime
 
-def lock_page(request, device_id):
+def lock_page(request, device_id=None):
+    if device_id is None:
+        # device_id 未填写，直接渲染页面让用户输入
+        return render(request, 'locker/lock_page.html', {
+            'device_id': '',
+            'last_checked': None
+        })
     # 获取或创建锁定命令
     lock_command, created = LockCommand.objects.get_or_create(device_id=device_id)
     

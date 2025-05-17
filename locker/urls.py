@@ -2,6 +2,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    path('', views.lock_page, name='lock_page'), 
+    path('lock_device/', views.lock_page, name='lock_page'),
     path('lock_device/<str:device_id>/', views.lock_page, name='lock_page'),
     path('lock_success/<str:device_id>/', views.lock_success, name='lock_success'),
     path('api/check_lock/<str:device_id>/', views.check_lock, name='check_lock'),
