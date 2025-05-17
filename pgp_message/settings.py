@@ -33,12 +33,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'message_agent',
     'rest_framework',  # 添加REST Framework
     'corsheaders',  # 添加CORS支持
     'django.contrib.sites',  # 添加django.contrib.sites
     'django.contrib.sitemaps',  # 添加django.contrib.sitemaps
     'django.contrib.flatpages',  # 添加django.contrib.flatpages
+    'message_agent',
+    'locker',
 ]
 
 MIDDLEWARE = [

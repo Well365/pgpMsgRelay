@@ -7,10 +7,13 @@ urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
     # 允许无语言前缀访问主要页面（如 relay）
     path('relay/', include('message_agent.urls')),
+    # 允许无语言前缀访问主要页面（如 locker）
+    path('locker/', include('locker.urls')),
 ]
 
 urlpatterns += i18n_patterns(
     path('admin/', admin.site.urls),
     path('relay/', include('message_agent.urls')),
+    path('locker/', include('locker.urls')),
     prefix_default_language=True
 )
