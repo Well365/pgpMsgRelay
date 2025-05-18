@@ -25,6 +25,7 @@ class LockCommand(models.Model):
 class PurchaseRecord(models.Model):
     device_id = models.CharField(max_length=255, db_index=True)
     product_id = models.CharField(max_length=255, db_index=True)
+    receipt_data = models.TextField() # Base64 encoded receipt data
     transaction_id = models.CharField(max_length=255, unique=True) # Apple's transaction ID
     original_transaction_id = models.CharField(max_length=255, null=True, blank=True, db_index=True) # For subscriptions
     purchase_date = models.DateTimeField()
