@@ -50,11 +50,14 @@ function copyMessage() {
     });
 }
 
+
 function copyAndOpenSi4Key() {
+    // 获取当前页面 URL
+    const currentUrl = window.location.href;
     const messageContent = document.getElementById('message-content').innerText;
-    navigator.clipboard.writeText(messageContent).then(function() {
+    navigator.clipboard.writeText(currentUrl).then(function() {
         // 尝试打开 Si4Key app
-        const si4keyScheme = 'Si4key://';
+        const si4keyScheme = `Si4key://open?url=${currentUrl}`;
         const appStoreLink = 'https://apps.apple.com/us/app/si4keyboard/id6745263713'; // 替换为实际的 App Store 链接
         
         // 创建一个计时器来检查是否成功打开应用

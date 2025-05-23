@@ -2,7 +2,7 @@
 
 # === 配置 ===
 # 本地项目根目录 (确保末尾没有斜杠)
-LOCAL_PROJECT_DIR="/Users/maxwell/Documents/idears/pgpMsgRelay"
+LOCAL_PROJECT_DIR="/Users/maxwell/Documents/idears/si4services/pgpMsgRelay"
 # 远程服务器用户和地址
 REMOTE_USER_HOST="root@8.219.85.168"
 # 远程服务器上项目的根目录 (Django 项目将部署在此)
