@@ -18,11 +18,19 @@
 </div>
 {% endif %}
 
-<div class="mb-3">
+<!-- <div class="mb-3">
     <label class="form-label">{% trans '加密消息内容:' %}</label>
     <div class="position-relative">
         <pre id="message-content">{{ message }}</pre>
         <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2" onclick="copyMessage()">{% trans '复制' %}</button>
+    </div>
+</div> -->
+
+<div class="position-relative">
+    <pre id="message-content">{{ message }}</pre>
+    <div class="position-absolute top-0 end-0 m-2">
+        <button class="btn btn-sm btn-outline-secondary me-2" onclick="copyMessage()">{% trans '复制' %}</button>
+        <button class="btn btn-sm btn-outline-primary" onclick="copyAndOpenSi4Key()">{% trans 'Copy And Open Si4Key' %}</button>
     </div>
 </div>
 
@@ -37,6 +45,32 @@ function copyMessage() {
     const messageContent = document.getElementById('message-content').innerText;
     navigator.clipboard.writeText(messageContent).then(function() {
         alert("{% trans '消息已复制到剪贴板!' %}");
+    }, function(err) {
+        console.error("{% trans '无法复制:' %}", err);
+    });
+}
+
+function copyAndOpenSi4Key() {
+    const messageContent = document.getElementById('message-content').innerText;
+    navigator.clipboard.writeText(messageContent).then(function() {
+        // 尝试打开 Si4Key app
+        const si4keyScheme = 'Si4key://';
+        const appStoreLink = 'https://apps.apple.com/us/app/si4keyboard/id6745263713'; // 替换为实际的 App Store 链接
+        
+        // 创建一个计时器来检查是否成功打开应用
+        const timeout = setTimeout(function() {
+            // 如果超时未能打开应用，则跳转到 App Store
+            window.location.href = appStoreLink;
+        }, 2500);
+
+        window.location.href = si4keyScheme;
+        
+        // 当页面隐藏时（可能是因为应用被打开），清除计时器
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                clearTimeout(timeout);
+            }
+        });
     }, function(err) {
         console.error("{% trans '无法复制:' %}", err);
     });
