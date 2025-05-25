@@ -199,25 +199,26 @@ def record_purchase(request):
 
 @csrf_exempt
 def check_purchase_status(request):
-    if request.method == 'GET':
-        device_id = request.GET.get('device_id')  # Current device making the check
-        product_id_to_check = request.GET.get('product_id')
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Invalid JSON'}, status=400)
+            
+        device_id = data.get('device_id')
+        product_id_to_check = data.get('product_id')
 
         if not device_id or not product_id_to_check:
             return JsonResponse({'error': 'Missing device_id or product_id parameter'}, status=400)
 
         try:
-            # Query for any purchase of the product_id.
-            active_purchases = PurchaseRecord.objects.filter(
-                product_id=product_id_to_check
-            )
+            active_purchases = PurchaseRecord.objects.filter(product_id=product_id_to_check)
 
             if active_purchases.exists():
-                # Get the latest one for info, assuming it's the most relevant
                 latest_purchase = active_purchases.latest('purchase_date')
                 return JsonResponse({
                     'isActive': True,
-                    'device_id': device_id,  # Echo back the requesting device
+                    'device_id': device_id,
                     'product_id': product_id_to_check,
                     'message': f'An active purchase for product {product_id_to_check} is associated with the Apple ID (potentially on another device).',
                     'lastKnownPurchaseDateForProduct': latest_purchase.purchase_date.isoformat()
@@ -233,4 +234,4 @@ def check_purchase_status(request):
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
     else:
-        return JsonResponse({'error': 'Invalid request method. Only GET is allowed.'}, status=405)
+        return JsonResponse({'error': 'Invalid request method. Only POST is allowed.'}, status=405)

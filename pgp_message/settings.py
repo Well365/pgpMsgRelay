@@ -22,7 +22,8 @@ ALLOWED_HOSTS = ["0.0.0.0",
                  "www.si4key.com:443",
                  "8.219.85.168",
                  "172.19.41.215",
-                 "localhost"
+                 "localhost",
+                 "localhost:9015"
                  ]
 
 # Application definition
