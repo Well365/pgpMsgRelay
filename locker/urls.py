@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+app_name = 'locker'
 
 urlpatterns = [
     path('', views.lock_page, name='lock_page'), 
