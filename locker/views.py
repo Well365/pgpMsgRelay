@@ -161,11 +161,11 @@ def record_purchase(request):
         try:
             data = json.loads(request.body)
             
-            device_id = data.get('deviceId')
-            product_id = data.get('productId')
+            device_id = data.get('device_id')
+            product_id = data.get('product_id')
             transaction_id = data.get('transactionId')
-            purchase_date_timestamp = data.get('purchaseDate')  # Expecting Unix timestamp (seconds)
-            original_transaction_id = data.get('originalTransactionId')  # Optional
+            purchase_date_timestamp = data.get('purchase_date')  # Expecting Unix timestamp (seconds)
+            original_transaction_id = data.get('original_transaction_id')  # Optional
 
             if not all([device_id, product_id, transaction_id, purchase_date_timestamp]):
                 return JsonResponse({'error': 'Missing required fields'}, status=400)
@@ -174,7 +174,7 @@ def record_purchase(request):
             try:
                 purchase_date = datetime.fromtimestamp(purchase_date_timestamp, tz=timezone.utc)
             except TypeError:  # Handle if timestamp is not a number
-                return JsonResponse({'error': 'Invalid purchaseDate format, expected Unix timestamp'}, status=400)
+                return JsonResponse({'error': 'Invalid purchase_date format, expected Unix timestamp'}, status=400)
 
             # Check if this transaction has already been recorded to prevent duplicates
             if PurchaseRecord.objects.filter(transaction_id=transaction_id).exists():
@@ -200,11 +200,11 @@ def record_purchase(request):
 @csrf_exempt
 def check_purchase_status(request):
     if request.method == 'GET':
-        device_id = request.GET.get('deviceId')  # Current device making the check
-        product_id_to_check = request.GET.get('productId')
+        device_id = request.GET.get('device_id')  # Current device making the check
+        product_id_to_check = request.GET.get('product_id')
 
         if not device_id or not product_id_to_check:
-            return JsonResponse({'error': 'Missing deviceId or productId parameter'}, status=400)
+            return JsonResponse({'error': 'Missing device_id or product_id parameter'}, status=400)
 
         try:
             # Query for any purchase of the product_id.
@@ -217,16 +217,16 @@ def check_purchase_status(request):
                 latest_purchase = active_purchases.latest('purchase_date')
                 return JsonResponse({
                     'isActive': True,
-                    'deviceId': device_id,  # Echo back the requesting device
-                    'productId': product_id_to_check,
+                    'device_id': device_id,  # Echo back the requesting device
+                    'product_id': product_id_to_check,
                     'message': f'An active purchase for product {product_id_to_check} is associated with the Apple ID (potentially on another device).',
                     'lastKnownPurchaseDateForProduct': latest_purchase.purchase_date.isoformat()
                 })
             else:
                 return JsonResponse({
                     'isActive': False,
-                    'deviceId': device_id,
-                    'productId': product_id_to_check,
+                    'device_id': device_id,
+                    'product_id': product_id_to_check,
                     'message': f'No active purchase record found for product {product_id_to_check} associated with this Apple ID.'
                 })
 
